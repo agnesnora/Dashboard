@@ -31,6 +31,57 @@ fetch(
   });
 
 fetch(`https://api.coingecko.com/api/v3/coins/vaiot`)
-  .then((res) => res.json())
-  .then((data) => console.log(data))
-  .catch((err) => console.log(err));
+  .then((res) => {
+    if (!res.ok) {
+      throw Error;
+    }
+    return res.json();
+  })
+  .then((data) => {
+    console.log(data);
+    document.getElementById(
+      "cripto-top"
+    ).innerHTML = `<img src="${data.image.small}">
+    <span>${data.name}</span>
+   
+    `;
+    document.getElementById("cripto-bottom").innerHTML = `
+    <p>💱: ${data.market_data.current_price.huf}HUF</p>
+    <p>☝️:${data.market_data.high_24h.huf}HUF</p>
+    <p>👇:${data.market_data.low_24h.usd}HUF</p>`;
+  })
+  .catch((err) => console.log("something went wrong"));
+
+/**
+ * Challenge: Add the name and icon of the cryptocurrency
+ * to the upper-left of the dashboard page
+ *
+ * Use `data.name` and `data.image.small` to access that info
+ */
+/**
+ * Challenge: Add the following data points underneath the
+ * name and icon (1 paragraph each):
+ *
+ * 1. Current price (data.market_data.current_price.usd)
+ * 2. 24-hour high price (data.market_data.high_24h.usd)
+ * 3. 24-hour low price (data.market_data.low_24h.usd)
+ *
+ * Feel free to check the response data object for your own currency
+ * if you don't want to use USD.
+ */
+
+function getTimeHtml() {
+  const date = new Date();
+
+  let hour = date.getHours();
+  let partOfTheDay = "AM";
+  if (hour > 12) {
+    hour = hour - 12;
+    partOfTheDay = "PM";
+  }
+  const minute = date.getMinutes();
+
+  return `${hour}:${minute} ${partOfTheDay}`;
+}
+
+document.getElementById("time").innerHTML = getTimeHtml();
