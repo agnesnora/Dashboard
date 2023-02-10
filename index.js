@@ -105,10 +105,10 @@ navigator.geolocation.getCurrentPosition((position) => {
     })
     .then((data) => {
       const icon = data.weather[0].icon;
-      const temperature = data.main.temp;
+      const temperature = Math.round(data.main.temp);
       const locationName = data.name;
       document.getElementById(
         "weather"
-      ).innerHTML = `<div id="weather-top"><img src="http://openweathermap.org/img/wn/${icon}@2x.png"><p>${temperature}°C</p></div><p>${locationName}</p>`;
+      ).innerHTML = `<div id="weather-top"><img src="http://openweathermap.org/img/wn/${icon}@2x.png"><p class="weather-temp">${temperature}°C</p></div><p class="weather-city">${locationName}</p>`;
     });
 });
