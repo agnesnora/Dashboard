@@ -76,12 +76,39 @@ function getTimeHtml() {
     timeStyle: "short",
     hour12: "true",
   };
-  const time = date.toLocaleTimeString("en-EN", options);
 
-  document.getElementById("time").innerHTML = time;
+  document.getElementById("time").textContent = date.toLocaleTimeString(
+    "en-EN",
+    options
+  );
 }
 
-getTimeHtml();
-setInterval(function () {
-  getTimeHtml();
-}, 60000);
+setInterval(getTimeHtml, 1000);
+
+navigator.geolocation.getCurrentPosition((position) => {
+  // console.log(position.coords.latitude, position.coords.longitude);
+
+  fetch(
+    `https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric`
+  )
+    .then((res) => {
+      if (!res.ok) {
+        throw Error("Weather data not available");
+      }
+      return res.json();
+
+      // fetch(
+      //   `https://api.openweathermap.org/data/2.5/weather?lat=${long}&lon=${long}&appid=d2a3329ea3bdf32807a07f76b5fdf6ce`
+      // )
+      //   .then((res) => res.json)
+      //   .then((data) => console.log(data));
+    })
+    .then((data) => {
+      const icon = data.weather[0].icon;
+      const temperature = data.main.temp;
+      const locationName = data.name;
+      document.getElementById(
+        "weather"
+      ).innerHTML = `<img src="http://openweathermap.org/img/wn/${icon}@2x.png"><p>${temperature}°C</p><p>${locationName}</p>`;
+    });
+});
