@@ -22,7 +22,7 @@ fetch(
   .then((res) => res.json())
   .then((data) => {
     console.log(data);
-    document.body.style.backgroundImage = `url(${data.urls.full})`;
+    document.body.style.backgroundImage = `url(${data.urls.raw})`;
     document.getElementById("author").textContent = `By:${data.user.name}`;
   })
   .catch((err) => {
@@ -72,16 +72,13 @@ fetch(`https://api.coingecko.com/api/v3/coins/vaiot`)
 
 function getTimeHtml() {
   const date = new Date();
+  const options = {
+    timeStyle: "short",
+    hour12: "true",
+  };
 
-  let hour = date.getHours();
-  let partOfTheDay = "AM";
-  if (hour > 12) {
-    hour = hour - 12;
-    partOfTheDay = "PM";
-  }
-  const minute = date.getMinutes();
-
-  return `${hour}:${minute} ${partOfTheDay}`;
+  const time = date.toLocaleTimeString("en-EN", options);
+  return time;
 }
 
-document.getElementById("time").innerHTML = getTimeHtml();
+document.getElementById("time").textContent = getTimeHtml();
