@@ -76,9 +76,12 @@ function getTimeHtml() {
     timeStyle: "short",
     hour12: "true",
   };
-
   const time = date.toLocaleTimeString("en-EN", options);
-  return time;
+
+  document.getElementById("time").innerHTML = time;
 }
 
-document.getElementById("time").textContent = getTimeHtml();
+getTimeHtml();
+setInterval(function () {
+  getTimeHtml();
+}, 60000);
