@@ -58,3 +58,22 @@ p {
   margin: 0 0.5em 0 0;
   font-size: 0.875em;
 }
+
+#weather {
+  margin-right: 0.2em;
+}
+
+#weather-top {
+  display: flex;
+  align-items: center;
+}
+
+#weather #weather-top p {
+  font-size: 1.6em;
+}
+
+#weather p {
+  text-align: end;
+  margin-right: 0;
+  font-size: 1.2em;
+}

@@ -109,6 +109,6 @@ navigator.geolocation.getCurrentPosition((position) => {
       const locationName = data.name;
       document.getElementById(
         "weather"
-      ).innerHTML = `<img src="http://openweathermap.org/img/wn/${icon}@2x.png"><p>${temperature}°C</p><p>${locationName}</p>`;
+      ).innerHTML = `<div id="weather-top"><img src="http://openweathermap.org/img/wn/${icon}@2x.png"><p>${temperature}°C</p></div><p>${locationName}</p>`;
     });
 });
